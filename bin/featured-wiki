@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require "./lib/featured_wiki.rb"
+
+
+FeaturedWiki::CLI.new.call
