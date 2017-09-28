@@ -23,7 +23,11 @@ class FeaturedWiki::CLI
           puts "#{todays_featured.summary}"
           puts "#{todays_featured.url}"
         elsif input == "2"
-          puts "Listing recently featured articles..."
+          puts "Listing recently featured articles...\n"
+          recently_featured = FeaturedWiki::Article.new(FeaturedWiki::Article.recently_featured)
+          recently_featured.recently_featured_titles.each.with_index(1) do |title, i|
+            puts "#{i}. #{title}"
+          end
         elsif input == "3"
           puts "Showing this month's queue..."
         elsif input == "4"
