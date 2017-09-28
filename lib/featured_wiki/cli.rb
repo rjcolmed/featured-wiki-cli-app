@@ -17,7 +17,7 @@ class FeaturedWiki::CLI
     while input != "exit"
       input = gets.strip.downcase
         if input == "1"
-          puts "Today's article..."
+          puts "Showing today's article..."
         elsif input == "2"
           puts "Listing recently featured articles..."
         elsif input == "3"
@@ -31,6 +31,10 @@ class FeaturedWiki::CLI
           puts "Please enter a choice between 1 - 4 or 'exit'..."
           menu
         end
+        menu
+    end
+
+    def display
     end
   end
 end
