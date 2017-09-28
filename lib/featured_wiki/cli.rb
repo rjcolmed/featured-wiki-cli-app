@@ -17,7 +17,11 @@ class FeaturedWiki::CLI
     while input != "exit"
       input = gets.strip.downcase
         if input == "1"
-          puts "Showing today's article..."
+          puts "Showing today's article...\n"
+          todays_featured = FeaturedWiki::Article.new(FeaturedWiki::Article.today)
+          puts "#{todays_featured.title}"
+          puts "#{todays_featured.summary}"
+          puts "#{todays_featured.url}"
         elsif input == "2"
           puts "Listing recently featured articles..."
         elsif input == "3"
