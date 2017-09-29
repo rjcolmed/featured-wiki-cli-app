@@ -24,9 +24,8 @@ class FeaturedWiki::Scraper
 
   def self.scrape_most_viewed_page
     doc = Nokogiri::HTML(open(BASE_URL + MOST_VIEWED_PATH))
-
-    articles = doc.css("table").map do |table|
-      most_viewed = []
+    most_viewed = []
+    doc.css("table").each do |table|
       table.css("tr").each do |row|
         article = {}
         row.css("td").each_with_index do |col, i|
@@ -42,8 +41,7 @@ class FeaturedWiki::Scraper
         end
         most_viewed << article
       end
-      most_viewed
     end
+    most_viewed.drop(1)
   end
-
 end
