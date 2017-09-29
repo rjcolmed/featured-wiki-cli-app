@@ -24,8 +24,9 @@ class FeaturedWiki::CLI
           most_viewed_articles
           FeaturedWiki::Article.all.each.with_index(1) do |a, i|
             puts "#{i}. #{a.title}"
-            puts "#{a.featured_date}"
-            puts "#{a.views}"
+            puts ""
+            puts "Featured date: #{a.featured_date}"
+            puts "Views: #{a.views}"
             puts ""
             puts "Blurb:"
             puts ""
