@@ -1,24 +1,18 @@
 class FeaturedWiki::Scraper
 
-  BASE_URL = "https://en.wikipedia.org/wiki/Wikipedia:Today%27s_featured_article/"
-  DATE_PATH = "#{Date.today.strftime("%B")}_#{Date.today.day},_#{Date.today.year}"
-  MOST_VIEWED_PATH = "Most_viewed"
+  BASE_URL = "https://en.wikipedia.org/wiki/Wikipedia:Today%27s_featured_article"
   HOME_URL = "https://en.wikipedia.org"
+  DATE_PATH = "/#{Date.today.strftime("%B")}_#{Date.today.day},_#{Date.today.year}"
+  MOST_VIEWED_PATH = "/Most_viewed"
+
 
   def self.scrape_featured_article_page
     doc = Nokogiri::HTML(open(BASE_URL + DATE_PATH))
-
-    articles = doc.css("div.tfa-recent a").map do |a|
-      title = a.text
-      url = HOME_URL + a["href"]
-      { title: title, url: url }
-    end
 
     {
       title: doc.css("p a").first.text,
       blurb: doc.css("p").text.split(" (Full").first,
       url: HOME_URL + doc.css("p a").first["href"],
-      recently_featured: articles
     }
   end
 
