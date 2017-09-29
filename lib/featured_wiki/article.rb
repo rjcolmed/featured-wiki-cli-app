@@ -1,5 +1,5 @@
 class FeaturedWiki::Article
-  attr_accessor :todays_title, :todays_blurb, :todays_url
+  attr_accessor :title, :blurb, :url
 
   @@all = []
 
@@ -10,5 +10,12 @@ class FeaturedWiki::Article
 
     def self.all
       @@all
+    end
+
+    def create_todays_article(article_hash)
+      self.new
+    end
+
+    def add_attributes_for_most_viewed
     end
 end
