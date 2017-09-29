@@ -1,5 +1,5 @@
 class FeaturedWiki::Article
-  attr_accessor :title, :blurb, :url
+  attr_accessor :title, :blurb, :url, :featured_date, :views
 
   @@all = []
 
@@ -16,6 +16,10 @@ class FeaturedWiki::Article
       self.new
     end
 
-    def add_attributes_for_most_viewed
+    def self.create_articles_from_collection(collection)
+      collection.each do |article_hash|
+        FeaturedWiki::Article.new(article_hash)
+      end
     end
+
 end
