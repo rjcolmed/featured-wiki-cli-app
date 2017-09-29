@@ -17,12 +17,15 @@ class FeaturedWiki::CLI
     while input != "exit"
       input = gets.strip.downcase
         if input == "1"
-          puts "Showing today's article...\n"
+          puts "Showing today's feature article.."
+          todays_article = FeaturedWiki::Scraper.scrape_featured_article_page
+          puts "#{todays_article[:title]}"
+          puts "#{todays_article[:blurb]}"
+          puts "Read the full article at: #{todays_article[:url]}"
         elsif input == "2"
           puts "Listing recently featured articles...\n"
         elsif input == "3"
           puts "Show most viewed featured articles..."
-          results = FeaturedWiki::Scraper.scrape_most_viewed_page
         elsif input == "4"
           puts "Showing info on Wikipedia's Featured Article Section..."
         elsif input == "exit"
