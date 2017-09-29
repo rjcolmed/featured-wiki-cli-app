@@ -26,6 +26,10 @@ class FeaturedWiki::CLI
           puts "Listing recently featured articles...\n"
         elsif input == "3"
           puts "Show most viewed featured articles..."
+          FeaturedWiki::Article.create_articles_from_collection(FeaturedWiki::Scraper.scrape_most_viewed_page)
+          FeaturedWiki::Article.all.each.with_index(1) do |article, i|
+            puts "#{i}. #{article.title} - #{article.views}"
+          end
         elsif input == "4"
           puts "Showing info on Wikipedia's Featured Article Section..."
         elsif input == "exit"
