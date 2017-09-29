@@ -18,18 +18,11 @@ class FeaturedWiki::CLI
       input = gets.strip.downcase
         if input == "1"
           puts "Showing today's article...\n"
-          todays_featured = FeaturedWiki::Article.new(FeaturedWiki::Article.today)
-          puts "#{todays_featured.title}"
-          puts "#{todays_featured.summary}"
-          puts "#{todays_featured.url}"
         elsif input == "2"
           puts "Listing recently featured articles...\n"
-          recently_featured = FeaturedWiki::Article.new(FeaturedWiki::Article.recently_featured)
-          recently_featured.recently_featured_titles.each.with_index(1) do |title, i|
-            puts "#{i}. #{title}"
-          end
         elsif input == "3"
-          puts "Showing this month's queue..."
+          puts "Show most viewed featured articles..."
+          results = FeaturedWiki::Scraper.scrape_most_viewed_page
         elsif input == "4"
           puts "Showing info on Wikipedia's Featured Article Section..."
         elsif input == "exit"
