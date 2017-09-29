@@ -12,14 +12,8 @@ class FeaturedWiki::Article
       @@all
     end
 
-    def create_todays_article(article_hash)
-      self.new
-    end
-
-    def self.create_articles_from_collection(collection)
-      collection.each do |article_hash|
-        FeaturedWiki::Article.new(article_hash)
-      end
+    def self.create_most_viewed_articles(collection)
+      collection.each { |article_hash| self.new(article_hash) }
     end
 
 end
