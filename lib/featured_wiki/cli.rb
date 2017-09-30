@@ -4,26 +4,18 @@ class FeaturedWiki::CLI
   end
 
   def menu
-    puts "\nWelcome to Today's Featured Wikipedia Article!\n\n"
-    puts "Enter the number you'd like to check out:\n\n"
-    puts "1. See today's featured article."
-    puts "2. See the most viewed Today's Featured Wikis."
-    puts "3. Get more info on Wikipedia's Today's Featured Article Section."
+    puts "\nWelcome to Featured Wiki!\n\n"
+    puts "Enter a number to get started:\n\n"
+    puts "1. See a blurb for today's featured Wikipedia article."
+    puts "2. See blurbs for each of this month's featured articles."
+    puts "3. See a list of the most viewed featured articles."
 
     puts "\nWhat would you like to do?"
     input = nil
     while input != "exit"
       input = gets.strip.downcase
         if input == "1"
-          puts ""
-          puts "Title: #{todays_article.title}"
-          puts ""
-          puts "Blurb:"
-          puts ""
-          puts "#{todays_article.blurb}"
-          puts ""
-          puts "Read the full article here: #{todays_article.url}"
-          puts ""
+          print_todays_article
         elsif input == "2"
           puts "Show most viewed featured articles..."
           most_viewed_articles
@@ -67,5 +59,18 @@ class FeaturedWiki::CLI
   def most_viewed_articles
     most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
     FeaturedWiki::Article.create_most_viewed_articles(most_viewed)
+  end
+
+  def print_todays_article
+    puts ""
+    puts "///---#{todays_article.title.upcase}---\\\\\\"
+    puts ""
+    puts ""
+    puts "#{todays_article.blurb}"
+    puts ""
+    puts "Read the full article here:"
+    puts ""
+    puts "#{todays_article.url}"
+    puts ""
   end
 end
