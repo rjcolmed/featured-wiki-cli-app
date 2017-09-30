@@ -48,12 +48,12 @@ class FeaturedWiki::CLI
 
   def generate_most_viewed
     most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
-    FeaturedWiki::Article.create_most_viewed_articles(most_viewed)
+    FeaturedWiki::Article.create_and_save_most_viewed_from(most_viewed)
   end
 
   def generate_this_months
     this_months = FeaturedWiki::Scraper.scrape_this_months_page
-    FeaturedWiki::Article.create_this_months_articles(this_months)
+    FeaturedWiki::Article.create_and_save_this_months_from(this_months)
   end
 
   def print_todays
