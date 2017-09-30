@@ -18,28 +18,8 @@ class FeaturedWiki::CLI
           print_todays_article
         elsif input == "2"
           puts "Show most viewed featured articles..."
-          most_viewed_articles
-          FeaturedWiki::Article.all.each.with_index(1) do |a, i|
-            puts ""
-            puts "#{i}. #{a.title}"
-            puts ""
-            puts "Featured date: #{a.featured_date}"
-            puts "Views: #{a.views}"
-            puts ""
-            puts "Blurb:"
-            puts ""
-            puts "#{a.blurb}"
-            puts ""
-            puts "Read the full article here: #{a.url}"
-            puts "===================================="
-            puts ""
-          end
         elsif input == "3"
-          puts "Showing info on Wikipedia's Featured Article Section..."
-          results = FeaturedWiki::Scraper.scrape_this_months_page #added
-          results.each do |result|
-            puts "#{result}"
-          end
+          print_most_viewed_articles
         elsif input == "exit"
           puts "Bye!"
           exit
@@ -72,5 +52,26 @@ class FeaturedWiki::CLI
     puts ""
     puts "#{todays_article.url}"
     puts ""
+  end
+
+  def print_most_viewed_articles
+    most_viewed_articles
+    FeaturedWiki::Article.all.each.with_index(1) do |article, i|
+      puts "---------------------------------------------------"
+      puts ""
+      puts "#{i}. ///---#{article.title}---\\\\\\"
+      puts ""
+      puts "Featured date: #{article.featured_date}"
+      puts ""
+      puts "Views: #{article.views}"
+      puts ""
+      puts "Blurb:"
+      puts ""
+      puts "#{article.blurb}"
+      puts ""
+      puts "Read the full article here:"
+      puts "#{article.url}"
+      puts ""
+    end
   end
 end
