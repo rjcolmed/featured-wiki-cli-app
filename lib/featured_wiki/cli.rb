@@ -1,4 +1,3 @@
-# CLI Controller - responsible for dealing with user input, business logic, etc.
 class FeaturedWiki::CLI
   def call
     menu
@@ -45,6 +44,10 @@ class FeaturedWiki::CLI
           end
         elsif input == "3"
           puts "Showing info on Wikipedia's Featured Article Section..."
+          results = FeaturedWiki::Scraper.scrape_this_months_page #added
+          results.each do |result|
+            puts "#{result}"
+          end
         elsif input == "exit"
           puts "Bye!"
           exit
