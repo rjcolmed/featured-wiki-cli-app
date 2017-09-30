@@ -1,6 +1,7 @@
 class FeaturedWiki::CLI
   def call
     generate_most_viewed
+    generate_this_months
     puts "\nWelcome to Featured Wiki!\n\n"
     puts "Pick one of the numbers below to get started."
     menu
@@ -20,11 +21,13 @@ class FeaturedWiki::CLI
         if input == "1"
           print_todays
         elsif input == "2"
-          puts "8888888888888"
+          print_this_months
         elsif input == "3"
-          most_viewed
+          most_viewed_menu
         elsif input == "exit"
+          puts ""
           puts "Bye!"
+          puts ""
           exit
         else
           puts ""
@@ -37,6 +40,7 @@ class FeaturedWiki::CLI
     end
   end
 
+
   def generate_todays
     todays_article = FeaturedWiki::Scraper.scrape_featured_article_page
     FeaturedWiki::Article.new(todays_article)
@@ -47,9 +51,14 @@ class FeaturedWiki::CLI
     FeaturedWiki::Article.create_most_viewed_articles(most_viewed)
   end
 
+  def generate_this_months
+    this_months = FeaturedWiki::Scraper.scrape_this_months_page
+    FeaturedWiki::Article.create_this_months_articles(this_months)
+  end
+
   def print_todays
     puts ""
-    puts "///---#{generate_todays.title.upcase}---\\\\\\"
+    puts "///---#{generate_todays.title}---\\\\\\"
     puts ""
     puts ""
     puts "#{generate_todays.blurb}"
@@ -60,7 +69,7 @@ class FeaturedWiki::CLI
     puts ""
   end
 
-  def most_viewed
+  def most_viewed_menu
     puts ""
     puts "1. 1-10"
     puts "2. 11-20"
@@ -72,28 +81,45 @@ class FeaturedWiki::CLI
     print_most_viewed(gets.chomp.to_i)
     puts "Would you like to see more most viewed featured articles (y/n)?"
     input = gets.chomp.downcase
-    input == "y" ? most_viewed : menu
+    input == "y" ? most_viewed_menu : menu
   end
 
   def print_most_viewed(input)
     number = input * 10
-    FeaturedWiki::Article.all[number - 10...number].each.with_index(number - 9) do |article, i|
+    FeaturedWiki::Article.all_most_viewed[number - 10...number].each.with_index(number - 9) do |a, i|
       puts "---------------------------------------------------"
       puts ""
-      puts "#{i}. ///---#{article.title}---\\\\\\"
+      puts "#{i}. ///---#{a.title}---\\\\\\"
       puts ""
-      puts "Featured date: #{article.featured_date}"
+      puts "Featured date: #{a.featured_date}"
       puts ""
-      puts "Views: #{article.views}"
+      puts "Views: #{a.views}"
       puts ""
       puts "Blurb:"
       puts ""
-      puts "#{article.blurb}"
+      puts "#{a.blurb}"
       puts ""
       puts "Read the full article here:"
-      puts "#{article.url}"
+      puts "#{a.url}"
       puts ""
     end
+  end
 
+  def print_this_months
+    FeaturedWiki::Article.all_this_months.each do |a|
+      puts "---------------------------------------------------"
+      puts ""
+      puts "///---#{a.title}---\\\\\\"
+      puts ""
+      puts "Featured date: #{a.featured_date}"
+      puts ""
+      puts "Blurb:"
+      puts ""
+      puts "#{a.blurb}"
+      puts ""
+      puts "Read the full article here:"
+      puts "#{a.url}"
+      puts ""
+    end
   end
 end
