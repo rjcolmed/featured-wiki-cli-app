@@ -1,16 +1,19 @@
 class FeaturedWiki::CLI
   def call
+    generate_most_viewed
+    puts "\nWelcome to Featured Wiki!\n\n"
+    puts "Pick one of the numbers below to get started."
     menu
   end
 
   def menu
-    puts "\nWelcome to Featured Wiki!\n\n"
-    puts "Enter a number to get started:\n\n"
+    puts ""
+    puts "What would you like to do?"
+    puts ""
     puts "1. See a blurb for today's featured Wikipedia article."
     puts "2. See blurbs for each of this month's featured articles."
     puts "3. See a list of the most viewed featured articles."
 
-    puts "\nWhat would you like to do?"
     input = nil
     while input != "exit"
       input = gets.strip.downcase
@@ -24,9 +27,12 @@ class FeaturedWiki::CLI
           puts "Bye!"
           exit
         else
+          puts ""
           puts "Please enter a choice between 1 - 4 or 'exit'..."
+          puts ""
           menu
         end
+        puts ""
         menu
     end
   end
@@ -55,14 +61,18 @@ class FeaturedWiki::CLI
   end
 
   def most_viewed
-    generate_most_viewed
+    puts ""
     puts "1. 1-10"
     puts "2. 11-20"
     puts "3. 21-30"
     puts "4. 31-40"
     puts "5. 41-50"
+    puts ""
     puts "Enter the number corresponding to the range you'd like to see:"
     print_most_viewed(gets.chomp.to_i)
+    puts "Would you like to see more most viewed featured articles (y/n)?"
+    input = gets.chomp.downcase
+    input == "y" ? most_viewed : menu
   end
 
   def print_most_viewed(input)
@@ -84,5 +94,6 @@ class FeaturedWiki::CLI
       puts "#{article.url}"
       puts ""
     end
+
   end
 end
