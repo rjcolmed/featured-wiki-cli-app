@@ -15,11 +15,11 @@ class FeaturedWiki::CLI
     while input != "exit"
       input = gets.strip.downcase
         if input == "1"
-          print_todays_article
+          print_todays
         elsif input == "2"
-          puts "Show most viewed featured articles..."
+          puts "8888888888888"
         elsif input == "3"
-          print_most_viewed_articles
+          most_viewed
         elsif input == "exit"
           puts "Bye!"
           exit
@@ -31,32 +31,43 @@ class FeaturedWiki::CLI
     end
   end
 
-  def todays_article
+  def generate_todays
     todays_article = FeaturedWiki::Scraper.scrape_featured_article_page
     FeaturedWiki::Article.new(todays_article)
   end
 
-  def most_viewed_articles
+  def generate_most_viewed
     most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
     FeaturedWiki::Article.create_most_viewed_articles(most_viewed)
   end
 
-  def print_todays_article
+  def print_todays
     puts ""
-    puts "///---#{todays_article.title.upcase}---\\\\\\"
+    puts "///---#{generate_todays.title.upcase}---\\\\\\"
     puts ""
     puts ""
-    puts "#{todays_article.blurb}"
+    puts "#{generate_todays.blurb}"
     puts ""
     puts "Read the full article here:"
     puts ""
-    puts "#{todays_article.url}"
+    puts "#{generate_todays.url}"
     puts ""
   end
 
-  def print_most_viewed_articles
-    most_viewed_articles
-    FeaturedWiki::Article.all.each.with_index(1) do |article, i|
+  def most_viewed
+    generate_most_viewed
+    puts "1. 1-10"
+    puts "2. 11-20"
+    puts "3. 21-30"
+    puts "4. 31-40"
+    puts "5. 41-50"
+    puts "Enter the number corresponding to the range you'd like to see:"
+    print_most_viewed(gets.chomp.to_i)
+  end
+
+  def print_most_viewed(input)
+    number = input * 10
+    FeaturedWiki::Article.all[number - 10...number].each.with_index(number - 9) do |article, i|
       puts "---------------------------------------------------"
       puts ""
       puts "#{i}. ///---#{article.title}---\\\\\\"
