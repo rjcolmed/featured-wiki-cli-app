@@ -9,8 +9,6 @@ class FeaturedWiki::CLI
 
   def menu
     puts ""
-    puts "What would you like to do?"
-    puts ""
     puts "1. See a blurb for today's featured Wikipedia article."
     puts "2. See blurbs for each of this month's featured articles."
     puts "3. See a list of the most viewed featured articles."
@@ -35,7 +33,7 @@ class FeaturedWiki::CLI
           puts ""
           menu
         end
-        puts ""
+        puts "What else would you like to do?"
         menu
     end
   end
@@ -64,12 +62,12 @@ class FeaturedWiki::CLI
     puts "#{generate_todays.blurb}"
     puts ""
     puts "Read the full article here:"
-    puts ""
     puts "#{generate_todays.url}"
     puts ""
   end
 
   def most_viewed_menu
+    puts "Enter the number next to the range of articles you'd like to see:"
     puts ""
     puts "1. 1-10"
     puts "2. 11-20"
@@ -77,9 +75,11 @@ class FeaturedWiki::CLI
     puts "4. 31-40"
     puts "5. 41-50"
     puts ""
-    puts "Enter the number corresponding to the range you'd like to see:"
+
     print_most_viewed(gets.chomp.to_i)
+
     puts "Would you like to see more most viewed featured articles (y/n)?"
+
     input = gets.chomp.downcase
     input == "y" ? most_viewed_menu : menu
   end
