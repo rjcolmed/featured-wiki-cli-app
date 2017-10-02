@@ -76,16 +76,21 @@ class FeaturedWiki::CLI
     while pick != "b"
       print_most_viewed_list(input)
       puts ""
-      puts "Enter the article's number for more info or b to go back:"
+      puts "Enter the article's number for more info, any number 1 -50 to jump around the full list,"
+      puts "or b to go back:\n"
       pick = gets.chomp
-      pick == "b" ? break : print_most_viewed_article(pick.to_i)
+      if (1..50).include?(pick.to_i)
+        print_most_viewed_article(pick.to_i)
+      else
+        puts "I don't understand that!"
+      end
     end
   end
 
   def print_most_viewed_list(input)
     number = input * 10
+    puts "\n///---Most Viewed #{number - 9} - #{number}---\\\\\\\n\n"
     FeaturedWiki::Article.all_most_viewed[number - 10...number].each.with_index(number - 9) do |a, i|
-      puts ""
       puts "#{i}. #{a.title}"
     end
       puts ""
