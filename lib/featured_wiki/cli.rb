@@ -12,7 +12,7 @@ class FeaturedWiki::CLI
     puts ""
     puts "1. Read the blurb for today's featured Wikipedia article."
     puts "2. See a list of this month's featured articles."
-    puts "3. See a list of the most viewed featured articles.\n"
+    puts "3. See a list of the top 50 most viewed featured articles.\n"
 
     input = nil
     while input != "exit"
@@ -58,16 +58,19 @@ class FeaturedWiki::CLI
   def most_viewed_menu
     input = nil
     while input != "b"
-      puts "\n///---------------Most Viewed Featured Wikipedia Articles---------------\\\\\\\n\n"
-      puts "Enter the number next to the articles you'd like to see"
-      puts "or b for the main menu:\n"
+      puts "\n///---------------Top 50 Most Viewed Featured Wikipedia Articles---------------\\\\\\\n\n"
+      puts "Enter 1 - 5 to for more info on each range of articles or b for the main menu:\n\n"
       puts "1. 1-10"
       puts "2. 11-20"
       puts "3. 21-30"
       puts "4. 31-40"
       puts "5. 41-50\n"
       input = gets.chomp
-      input == "b" ? break : most_viewed_submenu(input.to_i); most_viewed_menu
+      if (1..5).include?(input.to_i)
+        most_viewed_submenu(input.to_i)
+      elsif input != "b"
+        puts "I don't understand that! ¯\\_(ツ)_/¯ "
+      end
     end
   end
 
@@ -76,13 +79,13 @@ class FeaturedWiki::CLI
     while pick != "b"
       print_most_viewed_list(input)
       puts ""
-      puts "Enter the article's number for more info, any number 1 -50 to jump around the full list,"
+      puts "Enter the article's number for more info, any number 1 - 50 to jump around the full list,"
       puts "or b to go back:\n"
       pick = gets.chomp
       if (1..50).include?(pick.to_i)
         print_most_viewed_article(pick.to_i)
-      else
-        puts "I don't understand that!"
+      elsif pick != "b"
+        puts "I don't understand that! ¯\\_(ツ)_/¯ "
       end
     end
   end
