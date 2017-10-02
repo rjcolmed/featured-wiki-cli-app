@@ -18,7 +18,7 @@ class FeaturedWiki::CLI
       input = gets.strip.downcase
         case input
         when "1" then print_todays
-        when "2" then print_this_months_list
+        when "2" then this_months_menu
         when "3" then most_viewed_menu
         when "exit" then puts "\nBye!\n"
           exit
@@ -124,23 +124,33 @@ class FeaturedWiki::CLI
     FeaturedWiki::Article.all_this_months.each.with_index(1) do |a, i|
       puts "#{a.featured_date} - #{a.title}"
     end
-    puts ""
   end
 
-  def print_this_months_article(pick)
-    puts "Enter the day of the month to read the article's blurb:"
-    article = FeaturedWiki::Article.find_this_months(pick)
+  def this_months_menu
+    input = nil
+    while input != "b"
+      print_this_months_list
+      puts ""
+      puts "Enter the day of the month next to the article you want to check out"
+      puts "or b for the main menu:"
+      input = gets.chomp
+      input == "b" ? break : print_this_months_article(input.to_i)
+    end
+  end
+
+  def print_this_months_article(input)
+    article = FeaturedWiki::Article.find_this_months(input)
     puts ""
-    puts "///---#{a.title}---\\\\\\"
+    puts "///---#{article.title}---\\\\\\"
     puts ""
-    puts "Featured date: #{a.featured_date}"
+    puts "Featured date: #{article.featured_date}"
     puts ""
     puts "Blurb:"
     puts ""
-    puts "#{a.blurb}"
+    puts "#{article.blurb}"
     puts ""
     puts "Read the full article here:"
-    puts "#{a.url}"
+    puts "#{article.url}"
     puts ""
   end
 end
