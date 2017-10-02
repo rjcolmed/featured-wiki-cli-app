@@ -1,28 +1,29 @@
 class FeaturedWiki::CLI
   def call
-    generate_most_viewed
-    generate_this_months
     puts "\nWelcome to Featured Wiki!\n\n"
     puts "Pick one of the numbers below to get started."
+    generate_most_viewed
+    generate_this_months
     menu
   end
 
   def menu
     puts ""
     puts "1. See a blurb for today's featured Wikipedia article."
-    puts "2. See blurbs for each of this month's featured articles."
+    puts "2. See a list of this month's featured articles."
     puts "3. See a list of the most viewed featured articles."
 
     input = nil
     while input != "exit"
       input = gets.strip.downcase
-        if input == "1"
+        case input
+        when "1"
           print_todays
-        elsif input == "2"
+        when "2"
           print_this_months
-        elsif input == "3"
+        when "3"
           most_viewed_menu
-        elsif input == "exit"
+        when "exit"
           puts ""
           puts "Bye!"
           puts ""
@@ -37,7 +38,6 @@ class FeaturedWiki::CLI
         menu
     end
   end
-
 
   def generate_todays
     todays_article = FeaturedWiki::Scraper.scrape_featured_article_page
@@ -67,7 +67,8 @@ class FeaturedWiki::CLI
   end
 
   def most_viewed_menu
-    puts "Enter the number next to the range of articles you'd like to see:"
+    puts "Enter the number next to the articles you'd like to see:"
+    puts "or 'exit' for the main menu:"
     puts ""
     puts "1. 1-10"
     puts "2. 11-20"
@@ -76,33 +77,50 @@ class FeaturedWiki::CLI
     puts "5. 41-50"
     puts ""
 
-    print_most_viewed(gets.chomp.to_i)
-
-    puts "Would you like to see more most viewed featured articles (y/n)?"
-
-    input = gets.chomp.downcase
-    input == "y" ? most_viewed_menu : menu
+    input = gets.chomp.to_i
+    input == 0 ? menu : most_viewed_submenu(input)
   end
 
-  def print_most_viewed(input)
+  def most_viewed_submenu(input)
+    pick = nil
+    while pick != 0
+      print_most_viewed_list(input)
+      puts ""
+      puts "Enter the article's number for more info"
+      puts "or b to go back:"
+      pick = gets.chomp.to_i
+      print_article(pick)
+    end
+  end
+
+  def print_most_viewed_list(input)
     number = input * 10
     FeaturedWiki::Article.all_most_viewed[number - 10...number].each.with_index(number - 9) do |a, i|
+      puts "#{i}. #{a.title}"
+      puts ""
+    end
+  end
+
+  def print_article(pick)
+    binding.pry
+    found_article = FeaturedWiki::Article.find_most_viewed(pick)
       puts "---------------------------------------------------"
       puts ""
-      puts "#{i}. ///---#{a.title}---\\\\\\"
+      puts "///---#{found_article.title}---\\\\\\"
       puts ""
-      puts "Featured date: #{a.featured_date}"
+      puts "Featured date: #{found_article.featured_date}"
       puts ""
-      puts "Views: #{a.views}"
+      puts "Views: #{found_article.views}"
       puts ""
       puts "Blurb:"
       puts ""
-      puts "#{a.blurb}"
+      puts "#{found_article.blurb}"
       puts ""
       puts "Read the full article here:"
-      puts "#{a.url}"
+      puts "#{found_article.url}"
       puts ""
-    end
+      puts "---------------------------------------------------"
+      puts ""
   end
 
   def print_this_months
