@@ -43,8 +43,8 @@ class FeaturedWiki::CLI
   end
 
   def generate_most_viewed
-    hash = FeaturedWiki::Scraper.scrape_most_viewed_page
-    FeaturedWiki::Article.create_and_save_most_viewed_from(hash)
+    hashes = FeaturedWiki::Scraper.scrape_most_viewed_page
+    FeaturedWiki::MostViewed.create_and_save_from(hashes)
   end
 
   def print_todays
@@ -93,14 +93,14 @@ class FeaturedWiki::CLI
   def print_most_viewed_list(input)
     number = input * 10
     puts "\n///---Most Viewed #{number - 9} - #{number}---\\\\\\\n\n"
-    FeaturedWiki::Article.all_most_viewed[number - 10...number].each.with_index(number - 9) do |a, i|
+    FeaturedWiki::MostViewed.all[number - 10...number].each.with_index(number - 9) do |a, i|
       puts "#{i}. #{a.title}"
     end
       puts ""
   end
 
   def print_most_viewed_article(pick)
-    found_article = FeaturedWiki::Article.find_most_viewed(pick)
+    found_article = FeaturedWiki::MostViewed.find_article_by(pick)
       puts "---------------------------------------------------"
       puts ""
       puts "///---#{found_article.title}---\\\\\\"
