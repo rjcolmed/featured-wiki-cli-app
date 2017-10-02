@@ -2,14 +2,14 @@ class FeaturedWiki::CLI
   def call
     generate_most_viewed
     generate_this_months
-    puts "\nWelcome to Featured Wiki!\n\n"
-    puts "Pick one of the numbers below to get started."
+    puts "///\nWelcome to Featured Wiki!\n\n\\\\"
+    puts "Enter 1 - 3 to get started."
     menu
   end
 
   def menu
     puts ""
-    puts "1. See a blurb for today's featured Wikipedia article."
+    puts "1. Read the blurb for today's featured Wikipedia article."
     puts "2. See a list of this month's featured articles."
     puts "3. See a list of the most viewed featured articles."
 
@@ -17,21 +17,14 @@ class FeaturedWiki::CLI
     while input != "exit"
       input = gets.strip.downcase
         case input
-        when "1"
-          print_todays
-        when "2"
-          print_this_months
-        when "3"
-          most_viewed_menu
+        when "1" then print_todays
+        when "2" then print_this_months
+        when "3" then most_viewed_menu
         when "exit"
-          puts ""
-          puts "Bye!"
-          puts ""
+          puts "\nBye!\n"
           exit
         else
-          puts ""
-          puts "Please enter a choice between 1 - 3 or 'exit'..."
-          puts ""
+          puts "\nPlease enter a choice between 1 - 3 or 'exit'...\n"
           menu
         end
         puts "What else would you like to do?"
@@ -44,25 +37,26 @@ class FeaturedWiki::CLI
     FeaturedWiki::Article.new(todays_article)
   end
 
-  def generate_most_viewed
-    most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
-    FeaturedWiki::Article.create_and_save_most_viewed_from(most_viewed)
-  end
-
   def generate_this_months
     this_months = FeaturedWiki::Scraper.scrape_this_months_page
     FeaturedWiki::Article.create_and_save_this_months_from(this_months)
   end
 
+  def generate_most_viewed
+    most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
+    FeaturedWiki::Article.create_and_save_most_viewed_from(most_viewed)
+  end
+
   def print_todays
+    article = generate_todays
     puts ""
-    puts "///---#{generate_todays.title}---\\\\\\"
+    puts "///---#{article.title}---\\\\\\"
     puts ""
     puts ""
-    puts "#{generate_todays.blurb}"
+    puts "#{article.blurb}"
     puts ""
     puts "Read the full article here:"
-    puts "#{generate_todays.url}"
+    puts "#{article.url}"
     puts ""
   end
 
