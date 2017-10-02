@@ -1,8 +1,6 @@
 # FeaturedWiki
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/featured_wiki`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A simple Ruby app that presents you with the daily featured Wikipedia article, the month's queue of featured articles, and the top 50 most-viewed featured articles.
 
 ## Installation
 
@@ -22,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Input this into your terminal and follow the prompts:
+    $ featured_wiki
 
 ## Development
 
