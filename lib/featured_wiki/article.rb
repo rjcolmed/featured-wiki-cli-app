@@ -16,6 +16,10 @@ class FeaturedWiki::Article
       @@all_this_months
     end
 
+    def self.find_most_viewed(i)
+      @@all_most_viewed[i - 1]
+    end
+
     def self.create_and_save_most_viewed_from(collection)
       collection.each { |hash| @@all_most_viewed << self.new(hash) }
     end
