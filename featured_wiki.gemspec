@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["[Ricardo Colon-Medina]"]
   spec.email         = ["[rjcolmed@gmail.com]"]
 
-  spec.summary       = %q{parses and presents Wikipedia's 'From today's featured article' content}
-  spec.description   = %q{featured-wiki parses and presents Wikipedia's 'From today's featured article' content to user.}
+  spec.summary       = %q{This app scrapes Wikipedia for all relevant featured article info and presents it to user.}
+  spec.description   = %q{A simple Ruby app that presents you with the daily featured Wikipedia article, the month's queue of featured articles, and the top 50 most-viewed featured articles.}
   spec.homepage      = "https://github.com/rjcolmed/featured-wiki-cli-app"
   spec.license       = "MIT"
 
