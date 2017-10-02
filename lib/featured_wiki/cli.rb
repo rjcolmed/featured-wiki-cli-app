@@ -38,8 +38,8 @@ class FeaturedWiki::CLI
   end
 
   def generate_this_months
-    hash = FeaturedWiki::Scraper.scrape_this_months_page
-    FeaturedWiki::Article.create_and_save_this_months_from(hash)
+    hashes = FeaturedWiki::Scraper.scrape_this_months_page
+    FeaturedWiki::ThisMonth.create_and_save_from(hashes)
   end
 
   def generate_most_viewed
@@ -122,8 +122,8 @@ class FeaturedWiki::CLI
 
   def print_this_months_list
     puts "\n///-----------------#{Date.today.strftime("%B").upcase}----------------\\\\\\\n\n"
-    FeaturedWiki::Article.all_this_months.each.with_index(1) do |a, i|
-      puts "#{a.featured_date.split(" ").last}. #{a.title}"
+    FeaturedWiki::ThisMonth.all.each.with_index(1) do |article, i|
+      puts "#{article.featured_date.split(" ").last}. #{article.title}"
     end
   end
 
@@ -140,7 +140,7 @@ class FeaturedWiki::CLI
   end
 
   def print_this_months_article(input)
-    article = FeaturedWiki::Article.find_this_months(input)
+    article = FeaturedWiki::ThisMonth.find_article_by(input)
     puts ""
     puts "///---#{article.title}---\\\\\\"
     puts ""
