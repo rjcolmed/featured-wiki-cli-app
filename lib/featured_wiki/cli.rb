@@ -1,9 +1,9 @@
 class FeaturedWiki::CLI
   def call
-    puts "\nWelcome to Featured Wiki!\n\n"
-    puts "Pick one of the numbers below to get started."
     generate_most_viewed
     generate_this_months
+    puts "\nWelcome to Featured Wiki!\n\n"
+    puts "Pick one of the numbers below to get started."
     menu
   end
 
@@ -30,7 +30,7 @@ class FeaturedWiki::CLI
           exit
         else
           puts ""
-          puts "Please enter a choice between 1 - 4 or 'exit'..."
+          puts "Please enter a choice between 1 - 3 or 'exit'..."
           puts ""
           menu
         end
@@ -67,18 +67,20 @@ class FeaturedWiki::CLI
   end
 
   def most_viewed_menu
-    puts "Enter the number next to the articles you'd like to see:"
-    puts "or 'exit' for the main menu:"
-    puts ""
-    puts "1. 1-10"
-    puts "2. 11-20"
-    puts "3. 21-30"
-    puts "4. 31-40"
-    puts "5. 41-50"
-    puts ""
-
-    input = gets.chomp.to_i
-    input == 0 ? menu : most_viewed_submenu(input)
+    input = nil
+    while input != 0
+      puts "Enter the number next to the articles you'd like to see:"
+      puts "or 'exit' for the main menu:"
+      puts ""
+      puts "1. 1-10"
+      puts "2. 11-20"
+      puts "3. 21-30"
+      puts "4. 31-40"
+      puts "5. 41-50"
+      puts ""
+      input = gets.chomp.to_i
+      input == 0 ? break : most_viewed_submenu(input); most_viewed_menu
+    end
   end
 
   def most_viewed_submenu(input)
@@ -89,7 +91,7 @@ class FeaturedWiki::CLI
       puts "Enter the article's number for more info"
       puts "or b to go back:"
       pick = gets.chomp.to_i
-      print_article(pick)
+      pick == 0 ? break : print_article(pick)
     end
   end
 
@@ -102,7 +104,6 @@ class FeaturedWiki::CLI
   end
 
   def print_article(pick)
-    binding.pry
     found_article = FeaturedWiki::Article.find_most_viewed(pick)
       puts "---------------------------------------------------"
       puts ""
