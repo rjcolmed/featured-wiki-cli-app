@@ -20,11 +20,9 @@ class FeaturedWiki::CLI
         when "1" then print_todays
         when "2" then print_this_months
         when "3" then most_viewed_menu
-        when "exit"
-          puts "\nBye!\n"
+        when "exit" then puts "\nBye!\n"
           exit
-        else
-          puts "\nPlease enter a choice between 1 - 3 or 'exit'...\n"
+        else puts "\nEnter 1 - 3 or 'exit'...\n"
           menu
         end
         puts "What else would you like to do?"
