@@ -33,18 +33,18 @@ class FeaturedWiki::CLI
   end
 
   def generate_todays
-    todays_article = FeaturedWiki::Scraper.scrape_featured_article_page
-    FeaturedWiki::Article.new(todays_article)
+    hash = FeaturedWiki::Scraper.scrape_featured_article_page
+    FeaturedWiki::Article.new(hash)
   end
 
   def generate_this_months
-    this_months = FeaturedWiki::Scraper.scrape_this_months_page
-    FeaturedWiki::Article.create_and_save_this_months_from(this_months)
+    hash = FeaturedWiki::Scraper.scrape_this_months_page
+    FeaturedWiki::Article.create_and_save_this_months_from(hash)
   end
 
   def generate_most_viewed
-    most_viewed = FeaturedWiki::Scraper.scrape_most_viewed_page
-    FeaturedWiki::Article.create_and_save_most_viewed_from(most_viewed)
+    hash = FeaturedWiki::Scraper.scrape_most_viewed_page
+    FeaturedWiki::Article.create_and_save_most_viewed_from(hash)
   end
 
   def print_todays
