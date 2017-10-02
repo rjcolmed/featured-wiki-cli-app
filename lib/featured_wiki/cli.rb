@@ -33,8 +33,7 @@ class FeaturedWiki::CLI
   end
 
   def generate_todays
-    hash = FeaturedWiki::Scraper.scrape_featured_article_page
-    FeaturedWiki::Article.new(hash)
+    FeaturedWiki::ThisMonth.all[Date.today.day - 1]
   end
 
   def generate_this_months
