@@ -2,16 +2,17 @@ class FeaturedWiki::CLI
   def call
     generate_most_viewed
     generate_this_months
-    puts "///\nWelcome to Featured Wiki!\n\n\\\\"
-    puts "Enter 1 - 3 to get started."
+    puts "\n●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬๑۩ FEATUREDWIKI ۩๑▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬●\n\n"
+    puts "Welcome to FeaturedWiki! Enter 1 - 3 to get started."
     menu
   end
 
   def menu
+    puts "\n///-----------------MAIN MENU----------------\\\\\\\n\n"
     puts ""
     puts "1. Read the blurb for today's featured Wikipedia article."
     puts "2. See a list of this month's featured articles."
-    puts "3. See a list of the most viewed featured articles."
+    puts "3. See a list of the most viewed featured articles.\n"
 
     input = nil
     while input != "exit"
@@ -20,13 +21,13 @@ class FeaturedWiki::CLI
         when "1" then print_todays
         when "2" then this_months_menu
         when "3" then most_viewed_menu
-        when "exit" then puts "\nBye!\n"
+        when "exit" then puts "\nBye!\n\n"
           exit
         else puts "\nEnter 1 - 3 or 'exit'...\n"
           menu
         end
 
-        puts "What else would you like to do?"
+        puts "What else would you like to do? Enter 1 - 3 or exit:"
         menu
     end
   end
@@ -48,29 +49,23 @@ class FeaturedWiki::CLI
 
   def print_todays
     article = generate_todays
-    puts ""
-    puts "///---#{article.title}---\\\\\\"
-    puts ""
-    puts ""
-    puts "#{article.blurb}"
-    puts ""
-    puts "Read the full article here:"
-    puts "#{article.url}"
-    puts ""
+    puts "\n///---------------#{article.title}--------------\\\\\\\n\n"
+    puts "#{article.blurb}\n\n"
+    puts "Read the full article:\n"
+    puts "#{article.url}\n\n"
   end
 
   def most_viewed_menu
     input = nil
     while input != "b"
+      puts "\n///---------------Most Viewed Featured Wikipedia Articles---------------\\\\\\\n\n"
       puts "Enter the number next to the articles you'd like to see"
-      puts "or b for the main menu:"
-      puts ""
+      puts "or b for the main menu:\n"
       puts "1. 1-10"
       puts "2. 11-20"
       puts "3. 21-30"
       puts "4. 31-40"
-      puts "5. 41-50"
-      puts ""
+      puts "5. 41-50\n"
       input = gets.chomp
       input == "b" ? break : most_viewed_submenu(input.to_i); most_viewed_menu
     end
@@ -110,7 +105,7 @@ class FeaturedWiki::CLI
       puts ""
       puts "#{found_article.blurb}"
       puts ""
-      puts "Read the full article here:"
+      puts "Read the full article:\n"
       puts "#{found_article.url}"
       puts ""
       puts "---------------------------------------------------"
@@ -118,11 +113,9 @@ class FeaturedWiki::CLI
   end
 
   def print_this_months_list
-    puts ""
-    puts "///--------#{Date.today.strftime("%B")}--------\\\\\\"
-    puts ""
+    puts "\n///-----------------#{Date.today.strftime("%B").upcase}----------------\\\\\\\n\n"
     FeaturedWiki::Article.all_this_months.each.with_index(1) do |a, i|
-      puts "#{a.featured_date} - #{a.title}"
+      puts "#{a.featured_date.split(" ").last}. #{a.title}"
     end
   end
 
@@ -149,7 +142,7 @@ class FeaturedWiki::CLI
     puts ""
     puts "#{article.blurb}"
     puts ""
-    puts "Read the full article here:"
+    puts "Read the full article:\n"
     puts "#{article.url}"
     puts ""
   end
