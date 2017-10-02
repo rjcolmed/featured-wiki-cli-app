@@ -33,17 +33,17 @@ class FeaturedWiki::CLI
   end
 
   def generate_todays
-    FeaturedWiki::ThisMonth.all[Date.today.day - 1]
+    FeaturedWiki::Article.all[Date.today.day - 1]
   end
 
   def generate_this_months
     hashes = FeaturedWiki::Scraper.scrape_this_months_page
-    FeaturedWiki::ThisMonth.create_and_save_from(hashes)
+    FeaturedWiki::Article.create_and_save_from(hashes)
   end
 
   def generate_most_viewed
     hashes = FeaturedWiki::Scraper.scrape_most_viewed_page
-    FeaturedWiki::MostViewed.create_and_save_from(hashes)
+    FeaturedWiki::MostViewedArticle.create_and_save_from(hashes)
   end
 
   def print_todays
@@ -92,14 +92,14 @@ class FeaturedWiki::CLI
   def print_most_viewed_list(input)
     number = input * 10
     puts "\n///---Most Viewed #{number - 9} - #{number}---\\\\\\\n\n"
-    FeaturedWiki::MostViewed.all[number - 10...number].each.with_index(number - 9) do |a, i|
+    FeaturedWiki::MostViewedArticle.all_most_viewed[number - 10...number].each.with_index(number - 9) do |a, i|
       puts "#{i}. #{a.title}"
     end
       puts ""
   end
 
   def print_most_viewed_article(pick)
-    found_article = FeaturedWiki::MostViewed.find_article_by(pick)
+    found_article = FeaturedWiki::MostViewedArticle.find_article_by(pick)
       puts "---------------------------------------------------"
       puts ""
       puts "///---#{found_article.title}---\\\\\\"
@@ -121,7 +121,7 @@ class FeaturedWiki::CLI
 
   def print_this_months_list
     puts "\n///-----------------#{Date.today.strftime("%B").upcase}----------------\\\\\\\n\n"
-    FeaturedWiki::ThisMonth.all.each.with_index(1) do |article, i|
+    FeaturedWiki::Article.all.each.with_index(1) do |article, i|
       puts "#{article.featured_date.split(" ").last}. #{article.title}"
     end
   end
@@ -139,7 +139,7 @@ class FeaturedWiki::CLI
   end
 
   def print_this_months_article(input)
-    article = FeaturedWiki::ThisMonth.find_article_by(input)
+    article = FeaturedWiki::Article.find_article_by(input)
     puts ""
     puts "///---#{article.title}---\\\\\\"
     puts ""
