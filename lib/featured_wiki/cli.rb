@@ -84,7 +84,7 @@ class FeaturedWiki::CLI
       puts "Enter the article's number for more info"
       puts "or b to go back:"
       pick = gets.chomp
-      pick == "b" || 0 ? break : print_article(pick.to_i)
+      pick == "b" || 0 ? break : print_most_viewed_article(pick.to_i)
     end
   end
 
@@ -96,7 +96,7 @@ class FeaturedWiki::CLI
     end
   end
 
-  def print_article(pick)
+  def print_most_viewed_article(pick)
     found_article = FeaturedWiki::Article.find_most_viewed(pick)
       puts "---------------------------------------------------"
       puts ""
@@ -127,21 +127,20 @@ class FeaturedWiki::CLI
     puts ""
   end
 
-  # def print_this_months
-  #   FeaturedWiki::Article.all_this_months.each do |a|
-  #     puts "---------------------------------------------------"
-  #     puts ""
-  #     puts "///---#{a.title}---\\\\\\"
-  #     puts ""
-  #     puts "Featured date: #{a.featured_date}"
-  #     puts ""
-  #     puts "Blurb:"
-  #     puts ""
-  #     puts "#{a.blurb}"
-  #     puts ""
-  #     puts "Read the full article here:"
-  #     puts "#{a.url}"
-  #     puts ""
-  #   end
-  # end
+  def print_this_months_article(pick)
+    puts "Enter the day of the month to read the article's blurb:"
+    article = FeaturedWiki::Article.find_this_months(pick)
+    puts ""
+    puts "///---#{a.title}---\\\\\\"
+    puts ""
+    puts "Featured date: #{a.featured_date}"
+    puts ""
+    puts "Blurb:"
+    puts ""
+    puts "#{a.blurb}"
+    puts ""
+    puts "Read the full article here:"
+    puts "#{a.url}"
+    puts ""
+  end
 end
