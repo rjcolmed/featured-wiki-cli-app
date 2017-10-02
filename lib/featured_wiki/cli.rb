@@ -18,13 +18,14 @@ class FeaturedWiki::CLI
       input = gets.strip.downcase
         case input
         when "1" then print_todays
-        when "2" then print_this_months
+        when "2" then print_this_months_list
         when "3" then most_viewed_menu
         when "exit" then puts "\nBye!\n"
           exit
         else puts "\nEnter 1 - 3 or 'exit'...\n"
           menu
         end
+
         puts "What else would you like to do?"
         menu
     end
@@ -116,21 +117,31 @@ class FeaturedWiki::CLI
       puts ""
   end
 
-  def print_this_months
-    FeaturedWiki::Article.all_this_months.each do |a|
-      puts "---------------------------------------------------"
-      puts ""
-      puts "///---#{a.title}---\\\\\\"
-      puts ""
-      puts "Featured date: #{a.featured_date}"
-      puts ""
-      puts "Blurb:"
-      puts ""
-      puts "#{a.blurb}"
-      puts ""
-      puts "Read the full article here:"
-      puts "#{a.url}"
-      puts ""
+  def print_this_months_list
+    puts ""
+    puts "///--------#{Date.today.strftime("%B")}--------\\\\\\"
+    puts ""
+    FeaturedWiki::Article.all_this_months.each.with_index(1) do |a, i|
+      puts "#{a.featured_date} - #{a.title}"
     end
+    puts ""
   end
+
+  # def print_this_months
+  #   FeaturedWiki::Article.all_this_months.each do |a|
+  #     puts "---------------------------------------------------"
+  #     puts ""
+  #     puts "///---#{a.title}---\\\\\\"
+  #     puts ""
+  #     puts "Featured date: #{a.featured_date}"
+  #     puts ""
+  #     puts "Blurb:"
+  #     puts ""
+  #     puts "#{a.blurb}"
+  #     puts ""
+  #     puts "Read the full article here:"
+  #     puts "#{a.url}"
+  #     puts ""
+  #   end
+  # end
 end
