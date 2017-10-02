@@ -68,9 +68,9 @@ class FeaturedWiki::CLI
 
   def most_viewed_menu
     input = nil
-    while input != 0
-      puts "Enter the number next to the articles you'd like to see:"
-      puts "or 'exit' for the main menu:"
+    while input != "b"
+      puts "Enter the number next to the articles you'd like to see"
+      puts "or b for the main menu:"
       puts ""
       puts "1. 1-10"
       puts "2. 11-20"
@@ -78,20 +78,20 @@ class FeaturedWiki::CLI
       puts "4. 31-40"
       puts "5. 41-50"
       puts ""
-      input = gets.chomp.to_i
-      input == 0 ? break : most_viewed_submenu(input); most_viewed_menu
+      input = gets.chomp
+      input == "b" ? break : most_viewed_submenu(input.to_i); most_viewed_menu
     end
   end
 
   def most_viewed_submenu(input)
     pick = nil
-    while pick != 0
+    while pick != "b"
       print_most_viewed_list(input)
       puts ""
       puts "Enter the article's number for more info"
       puts "or b to go back:"
-      pick = gets.chomp.to_i
-      pick == 0 ? break : print_article(pick)
+      pick = gets.chomp
+      pick == "b" || 0 ? break : print_article(pick.to_i)
     end
   end
 
