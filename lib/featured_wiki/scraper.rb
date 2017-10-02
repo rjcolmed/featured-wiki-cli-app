@@ -5,16 +5,6 @@ class FeaturedWiki::Scraper
   BASE_URL = "https://en.wikipedia.org/wiki/Wikipedia:Today%27s_featured_article"
   DATE_PATH = "/#{Date.today.strftime("%B")}_#{Date.today.day},_#{Date.today.year}"
 
-  def self.scrape_featured_article_page
-    doc = Nokogiri::HTML(open(BASE_URL + DATE_PATH))
-
-    {
-      title: doc.css("p a").first.text,
-      blurb: doc.css("p").text.split(" (Full").first,
-      url: HOME_URL + doc.css("p a").first["href"],
-    }
-  end
-
   def self.scrape_this_months_page
     doc = Nokogiri::HTML(open(BASE_URL + MONTH_PATH))
     doc.css("div#mp-tfa-img + p, dl + p").each_with_index.map do |p, i|
