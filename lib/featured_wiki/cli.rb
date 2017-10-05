@@ -48,7 +48,9 @@ class FeaturedWiki::CLI
 
   def print_todays
     article = generate_todays
-    puts "\n///---------------#{article.title}--------------\\\\\\\n\n"
+    puts "\n///---------------Today's Featured Article--------------\\\\\\\n\n"
+    puts "Title: #{article.title}\n\n"
+    puts "Date: #{article.featured_date}\n\n"
     puts "#{article.blurb}\n\n"
     puts "Read the full article:\n"
     puts "#{article.url}\n\n"
