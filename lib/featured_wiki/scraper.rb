@@ -8,12 +8,12 @@ class FeaturedWiki::Scraper
   def self.scrape_this_months_page
     doc = Nokogiri::HTML(open(BASE_URL + MONTH_PATH))
     doc.css("div#mp-tfa-img + p, dl + p").each_with_index.map do |p, i|
-        p ? b = p.text.split(" (Full").first : b = "No blurb found"
-        doc.css("dt b")[i] ? d = doc.css("dt b")[i].text : d = "No date found"
-        p.at_css("a:has(b)") ? t = p.css("a:has(b)")[0]["title"] : t = "No title found"
-        p.at_css("a:has(b)") ? u = HOME_URL + p.css("a:has(b)")[0]["href"] : u = "No URL found"
+        p ? blurb = p.text.split(" (Full").first : blurb = "No blurb found"
+        doc.css("dt b")[i] ? date = doc.css("dt b")[i].text : date = "No date found"
+        p.at_css("a:has(b)") ? title = p.css("a:has(b)")[0]["title"] : title = "No title found"
+        p.at_css("a:has(b)") ? url = HOME_URL + p.css("a:has(b)")[0]["href"] : url = "No URL found"
 
-        { featured_date: d, title: t, blurb: b, url: u }
+        { featured_date: date, title: title, blurb: blurb, url: url }
     end
   end
 
