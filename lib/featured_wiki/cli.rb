@@ -3,12 +3,12 @@ class FeaturedWiki::CLI
     generate_most_viewed
     generate_this_months
     puts "\n●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬๑۩ FEATUREDWIKI ۩๑▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬●\n\n"
+      puts "\n///-----------------MAIN MENU----------------\\\\\\\n\n"
     puts "Welcome to FeaturedWiki! Enter 1 - 3 to get started."
     menu
   end
 
   def menu
-    puts "\n///-----------------MAIN MENU----------------\\\\\\\n\n"
     puts ""
     puts "1. Read the blurb for today's featured Wikipedia article."
     puts "2. See a list of this month's featured articles."
