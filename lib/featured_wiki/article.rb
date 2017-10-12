@@ -18,4 +18,8 @@ class FeaturedWiki::Article
     def self.create_and_save_from(hashes)
       hashes.each { |hash| @@all << self.new(hash) }
     end
+
+    def self.search_blurb(keyword)
+      self.all.select { |article| article.blurb.include?(keyword) } 
+    end
 end
