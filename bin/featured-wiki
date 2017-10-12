@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
-require "./lib/featured_wiki.rb"
+require_relative "../lib/featured_wiki.rb"
+#require "/Users/ricardocolon/code/featured_wiki/lib/featured_wiki.rb"
+
 
 FeaturedWiki::CLI.new.call
