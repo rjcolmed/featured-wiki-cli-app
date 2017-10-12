@@ -2,6 +2,7 @@ class FeaturedWiki::CLI
   def call
     generate_most_viewed
     generate_this_months
+
     puts "\n●▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬๑۩ FEATUREDWIKI ۩๑▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬●\n\n"
       puts "\n///-----------------MAIN MENU----------------\\\\\\\n\n"
     puts "Welcome to FeaturedWiki! Enter 1 - 3 to get started."
@@ -130,13 +131,22 @@ class FeaturedWiki::CLI
 
   def this_months_menu
     input = nil
+    print_this_months_list
     while input != "b"
-      print_this_months_list
       puts ""
       puts "Enter the day of the month next to the article you want to check out"
       puts "or b for the main menu:"
+      puts "or list to see the month's list again:"
       input = gets.chomp
-      input == "b" ? break : print_this_months_article(input.to_i)
+      if input.to_i.between?(1, FeaturedWiki::Article.all.size)
+        print_this_months_article(input.to_i)
+      elsif input == "list"
+        print_this_months_list
+      elsif input == "b"
+        break
+      else
+        puts "I don't understand that! ¯\\_(ツ)_/¯ "
+      end
     end
   end
 
